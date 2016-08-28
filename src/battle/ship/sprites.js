@@ -39,7 +39,6 @@ function createSpriteBundle(cb) {
 }
 
 const Sprites = {
-    // SHIP
     back: createSpriteBundle(function (canvas, ctx) {
         ctx.beginPath();
         ctx.moveTo(0, 10);
@@ -54,6 +53,18 @@ const Sprites = {
         ctx.moveTo(11, 0);
         ctx.quadraticCurveTo(25, 7, 11, 15);
         ctx.fillStyle = '#ccc';
+        ctx.fill();
+
+        ctx.fillStyle = '#963';
+        ctx.fillRect(10, 0, 2, 15);
+        ctx.fillStyle = '#852';
+        ctx.fillRect(0, 15, 22, 15);
+    }),
+    blackSail: createSpriteBundle(function (canvas, ctx) {
+        ctx.beginPath();
+        ctx.moveTo(11, 0);
+        ctx.quadraticCurveTo(25, 7, 11, 15);
+        ctx.fillStyle = '#333';
         ctx.fill();
 
         ctx.fillStyle = '#963';
@@ -76,10 +87,11 @@ const Sprites = {
     }),
     front: createSpriteBundle(function (canvas, ctx) {
         ctx.beginPath();
+        ctx.fillStyle = '#852';
+        ctx.fillRect(0, 13, 22, 2);
         ctx.moveTo(0, 15);
         ctx.lineTo(22, 15);
         ctx.quadraticCurveTo(12, 30, 0, 30);
-        ctx.fillStyle = '#852';
         ctx.fill();
     }),
     cannonball: createSpriteBundle(function (canvas, ctx) {

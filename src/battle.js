@@ -1,19 +1,16 @@
-import PirateShip from './battle/pirate-ship';
 import Debris from './battle/debris';
+import PirateShip from './battle/pirate-ship';
+import Trader from './battle/trader';
 
 export default class Battle {
     constructor(game) {
-        this.sea = [];
-        for (let x = 16; x--;) {
-            this.sea[x] = [];
-            for (let y = 16; y--;) {
-                this.sea[x][y] = 0;
-            }
-        }
-
         this.cannonBalls = [];
-        this.debris = [new Debris(4, 4)];
+        this.debris = [];
+        this.traders = [];
         this.pirateShip = new PirateShip(this);
+        this.updateOccupied();
+        this.addRandomDebris();
+        this.addTrader();
 
         game.input.on('click', (x, y) => {
             if (x > 400) {
@@ -39,19 +36,22 @@ export default class Battle {
 
         this.pirateShip.update();
 
-        this.debris = this.debris.filter(function (debris) {
-            return debris.alive;
+        this.traders = this.traders.filter((trader) => {
+            trader.update();
+            return trader.alive;
         });
 
-        this.cannonBalls = this.cannonBalls.filter(function (cannonBall) {
+        this.debris = this.debris.filter((debris) => debris.alive);
+
+        this.cannonBalls = this.cannonBalls.filter((cannonBall) => {
             cannonBall.update();
             return cannonBall.alive;
         });
     }
 
     draw(screen) {
-        for (let x = this.sea.length - 1; x--;) {
-            for (let y = this.sea[x].length - 1; y--;) {
+        for (let x = 16; x--;) {
+            for (let y = 16; y--;) {
                 screen.ctx.save();
                 screen.addPolygon(
                     x, y,
@@ -76,7 +76,49 @@ export default class Battle {
             entity.draw(screen);
         });
 
+        this.traders.forEach(function (entity) {
+            entity.draw(screen);
+        });
+
         this.pirateShip.draw(screen);
         screen.drawPolygons();
     }
+
+    updateOccupied() {
+        this.occupied = [];
+        this.pirateShip.addOccupied(this.occupied);
+    }
+
+    isOccupied(x, y) {
+        return this.occupied.some((o) => {
+            return x == o.x && y == o.y;
+        });
+    }
+
+    addRandomDebris() {
+        let x, y;
+        do {
+            x = Math.random() * 14 + 1 | 0;
+            y = Math.random() * 14 + 1 | 0;
+        } while (this.isOccupied(x, y));
+
+        this.debris.push(new Debris(x, y));
+    }
+
+    addTrader() {
+        this.traders.push(new Trader(this, {x: 0, y: 8}, {x: 1, y: 0}));
+    }
+
+    isOutOfBounds(position) {
+        if (!position) {
+            return true;
+        }
+        if (position.x < 0 || position.x >= 16) {
+            return true;
+        }
+        if (position.y < 0 || position.y >= 16) {
+            return true;
+        }
+        return false;
+    };
 }

@@ -14,7 +14,7 @@ Debris.prototype.draw = function (screen) {
         function () {
             screen.ctx.fillStyle = '#b86';
             screen.ctx.transform(1, 0.5, 0, 1, 0, 0);
-            screen.ctx.fillRect(-10, -5, 10, 20);
+            screen.ctx.fillRect(-10, -10, 10, 20);
         }
     );
     screen.addCall(
@@ -23,7 +23,7 @@ Debris.prototype.draw = function (screen) {
         function () {
             screen.ctx.fillStyle = '#b86';
             screen.ctx.transform(1, 0.5, 0, 1, 0, 0);
-            screen.ctx.fillRect(0, -5, 10, 20);
+            screen.ctx.fillRect(0, -10, 10, 20);
         }
     );
 };
