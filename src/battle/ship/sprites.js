@@ -1,8 +1,8 @@
 function createSprite(cb) {
-    var canvas = document.createElement('canvas');
+    const canvas = document.createElement('canvas');
     canvas.width = 22;
     canvas.height = 30;
-    var ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d');
 
     cb(canvas, ctx);
 
@@ -28,8 +28,8 @@ function darken(sprite) {
 }
 
 function createSpriteBundle(cb) {
-    var sprite = createSprite(cb);
-    var reversed = reverse(sprite)
+    const sprite = createSprite(cb);
+    const reversed = reverse(sprite)
     return {
         base: sprite,
         reversed: reversed,
@@ -38,7 +38,7 @@ function createSpriteBundle(cb) {
     }
 }
 
-var Sprites = {
+const Sprites = {
     // SHIP
     back: createSpriteBundle(function (canvas, ctx) {
         ctx.beginPath();

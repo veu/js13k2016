@@ -33,7 +33,7 @@ export default class Ship {
             this.nextDirection = null;
         }
 
-        var next = {
+        let next = {
             x: this.parts[0].next.x + this.direction.x,
             y: this.parts[0].next.y + this.direction.y
         };
@@ -49,7 +49,7 @@ export default class Ship {
         });
 
         if (onlyFirst) {
-            var first = true;
+            let first = true;
             this.parts.forEach((part) => {
                 part.paused = !first;
                 first = false;

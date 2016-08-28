@@ -9,7 +9,7 @@ export default class PirateShip extends Ship {
         }
 
         if (this.animationStep === 15) {
-            var collectedDebris = this.state.debris.find((debris) => {
+            const collectedDebris = this.state.debris.find((debris) => {
                 if (debris.position.x == this.parts[0].position.x && debris.position.y == this.parts[0].position.y) {
                     debris.alive = false;
                     return true;
@@ -26,7 +26,7 @@ export default class PirateShip extends Ship {
             }
 
             if (collectedDebris) {
-                var newPart = this.parts.length == 3 || Math.random() < .5 ? Cannon : Sail;
+                const newPart = this.parts.length == 3 || Math.random() < .5 ? Cannon : Sail;
                 this.parts.splice(1, 0, new newPart(this.state, collectedDebris.position, this.parts[0].position, null));
             }
 
