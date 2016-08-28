@@ -11,7 +11,7 @@ export default class ShipPart {
     };
 
     update() {
-        
+
     }
 
     draw(screen, animationStep) {
@@ -26,7 +26,7 @@ export default class ShipPart {
             (this.next.x + this.position.x + this.next.y + this.position.y) / 2,
             () => {
                 screen.ctx.save();
-                screen.ctx.translate(0, -20);
+                screen.ctx.translate(0, -25);
                 screen.ctx.transform(1, this.next.x - this.position.x ? -0.5 : 0.5, 0, 1, 0, 0);
                 if (this.next.x - this.position.x > 0 || this.next.y - this.position.y < 0) screen.ctx.scale(-1, 1);
                 screen.ctx.drawImage(
@@ -46,7 +46,7 @@ export default class ShipPart {
             (this.previous.x + this.position.x + this.previous.y + this.position.y) / 2,
             () => {
                 screen.ctx.save();
-                screen.ctx.translate(0, -20);
+                screen.ctx.translate(0, -25);
                 screen.ctx.transform(1, this.previous.x - this.position.x ? -0.5 : 0.5, 0, 1, 0, 0);
                 if (this.previous.x - this.position.x > 0 || this.previous.y - this.position.y < 0) screen.ctx.scale(-1, 1);
                 screen.ctx.drawImage(

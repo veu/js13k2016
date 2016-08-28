@@ -57,10 +57,10 @@ export default class Battle {
                     x, y,
                     (x + y) + 1,
                     [
-                        0, 5,
-                        20, 15,
-                        0, 25,
-                        -20, 15
+                        0, 0,
+                        20, 10,
+                        0, 20,
+                        -20, 10
                     ],
                     this.pirateShip.alive ? '#4aa' : '#a66'
                 );
