@@ -55,8 +55,8 @@ export default class Battle {
     }
 
     draw(screen) {
-        for (let x = 16; x--;) {
-            for (let y = 16; y--;) {
+        for (let x = 15; x--;) {
+            for (let y = 15; y--;) {
                 screen.ctx.save();
                 screen.addPolygon(
                     x, y,
@@ -114,7 +114,21 @@ export default class Battle {
     }
 
     addTrader() {
-        this.traders.push(new Trader(this, {x: 0, y: 8}, {x: 1, y: 0}));
+        let x, y;
+        do {
+            x = Math.random() * 14 + 1 | 0;
+            y = Math.random() < .5 ? 0 : 15;
+            if (Math.random() < .5) {
+                [x, y] = [y, x];
+            }
+        } while (this.isOccupied(x, y));
+
+        const direction = {
+            x: x == 0 ? 1 : x == 15 ? -1 : 0,
+            y: y == 0 ? 1 : y == 15 ? -1 : 0
+        };
+
+        this.traders.push(new Trader(this, {x: x, y: y}, direction));
     }
 
     isOutOfBounds(position) {
