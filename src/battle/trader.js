@@ -21,7 +21,7 @@ export default class Trader extends Ship {
 
         this.move(false, this.state.isOutOfBounds(this.parts[0].position));
 
-        if (this.state.isOutOfBounds(this.parts[0].position)) {
+        if (this.state.isOutOfBounds(this.parts[0].next)) {
             this.disassemble();
         } else if (this.parts.length < 3) {
             this.assemble();
