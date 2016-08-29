@@ -50,4 +50,14 @@ export default class Ship {
             }
         }
     }
+
+    collidesWith(ship) {
+        if (!this.parts[0] || !this.parts[0].next) {
+            return false;
+        }
+
+        return ship.parts.some((part) => {
+            return part.position.x == this.parts[0].next.x && part.position.y == this.parts[0].next.y;
+        });
+    }
 }

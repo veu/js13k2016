@@ -26,6 +26,10 @@ export default class Trader extends Ship {
         } else if (this.parts.length < 3) {
             this.assemble();
         }
+
+        if (this.collidesWith(this.state.pirateShip)) {
+            this.tryEvading(this.state.pirateShip);
+        }
     }
 
     assemble() {
@@ -47,5 +51,26 @@ export default class Trader extends Ship {
         }
 
         this.parts[0].next = null;
+    }
+
+    tryEvading(ship) {
+        const oldCourse = this.parts[0].next;
+        this.parts[0].next = {
+            x: this.parts[0].position.x + this.direction.y,
+            y: this.parts[0].position.y - this.direction.x
+        };
+        if (!this.collidesWith(ship)) {
+            return;
+        }
+        this.parts[0].next = {
+            x: this.parts[0].position.x - this.direction.y,
+            y: this.parts[0].position.y + this.direction.x
+        };
+        if (!this.collidesWith(ship)) {
+            return;
+        }
+
+        this.parts[0].next = oldCourse;
+        this.alive = false;
     }
 }

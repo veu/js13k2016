@@ -51,6 +51,7 @@ export default class Battle {
         this.updateOccupied();
         if (this.isOccupied(this.pirateShip.parts[0].position.x, this.pirateShip.parts[0].position.y)) {
             this.pirateShip.alive = false;
+            return;
         }
     }
 
@@ -135,10 +136,10 @@ export default class Battle {
         if (!position) {
             return true;
         }
-        if (position.x < 0 || position.x >= 16) {
+        if (position.x < 0 || position.x > 15) {
             return true;
         }
-        if (position.y < 0 || position.y >= 16) {
+        if (position.y < 0 || position.y > 15) {
             return true;
         }
         return false;
