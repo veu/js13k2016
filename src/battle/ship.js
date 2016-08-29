@@ -45,7 +45,9 @@ export default class Ship {
     addOccupied(occupied) {
         occupied.push(this.parts[0].position);
         for (const part of this.parts) {
-            occupied.push(part.previous);
+            if (part.previous) {
+                occupied.push(part.previous);
+            }
         }
     }
 }

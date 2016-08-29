@@ -49,4 +49,12 @@ export default class PirateShip extends Ship {
             part.update();
         });
     }
+
+    addOccupied(occupied) {
+        for (const part of this.parts) {
+            if (part.previous) {
+                occupied.push(part.previous);
+            }
+        }
+    }
 }

@@ -47,6 +47,11 @@ export default class Battle {
             cannonBall.update();
             return cannonBall.alive;
         });
+
+        this.updateOccupied();
+        if (this.isOccupied(this.pirateShip.parts[0].position.x, this.pirateShip.parts[0].position.y)) {
+            this.pirateShip.alive = false;
+        }
     }
 
     draw(screen) {
@@ -87,6 +92,9 @@ export default class Battle {
     updateOccupied() {
         this.occupied = [];
         this.pirateShip.addOccupied(this.occupied);
+        this.traders.forEach((trader) => {
+            trader.addOccupied(this.occupied);
+        });
     }
 
     isOccupied(x, y) {
