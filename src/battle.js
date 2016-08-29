@@ -67,7 +67,7 @@ export default class Battle {
                         0, 20,
                         -20, 10
                     ],
-                    this.pirateShip.alive ? '#4aa' : '#a66'
+                    this.pirateShip.alive ? '#4aa' : '#999'
                 );
                 screen.ctx.restore();
             }
