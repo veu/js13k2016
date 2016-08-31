@@ -10,7 +10,6 @@ export default class Battle {
         this.pirateShip = new PirateShip(this);
         this.updateOccupied();
         this.addRandomDebris();
-        this.addTrader();
 
         game.input.on('click', (x, y) => {
             if (x > 400) {
@@ -52,6 +51,9 @@ export default class Battle {
         if (this.isOccupied(this.pirateShip.parts[0].position.x, this.pirateShip.parts[0].position.y)) {
             this.pirateShip.alive = false;
             return;
+        }
+        if (this.traders.length == 0 && this.debris.length == 0) {
+            this.addTrader();
         }
     }
 
