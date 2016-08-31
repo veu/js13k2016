@@ -15,7 +15,7 @@ export default class CannonPart extends ShipPart {
 
         const position = {x: (this.position.x + this.previous.x) / 2, y: (this.position.y + this.previous.y) / 2};
         const x = this.next.x - this.position.x;
-        this.state.cannonBalls.push(new Cannonball(position, x ? {x: 0, y: 1} : {x: 1, y: 0}));
-        this.state.cannonBalls.push(new Cannonball(position, x ? {x: 0, y: -1} : {x: -1, y: 0}));
+        this.state.cannonBalls.push(new Cannonball(this.state, position, x ? {x: 0, y: 1} : {x: 1, y: 0}));
+        this.state.cannonBalls.push(new Cannonball(this.state, position, x ? {x: 0, y: -1} : {x: -1, y: 0}));
     }
 }

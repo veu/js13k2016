@@ -1,4 +1,5 @@
 import Back from './ship/back-part.js';
+import Debris from './debris.js';
 import Front from './ship/front-part.js';
 import Sail from './ship/sail-part.js';
 import Ship from './ship';
@@ -72,5 +73,11 @@ export default class Trader extends Ship {
 
         this.parts[0].next = oldCourse;
         this.alive = false;
+    }
+
+    turnIntoDebris() {
+        this.parts.forEach((part) => {
+            this.state.debris.push(new Debris(part.position.x, part.position.y));
+        });
     }
 }

@@ -14,15 +14,23 @@ export default class Battle {
         game.input.on('click', (x, y) => {
             if (x > 400) {
                 if (y > 275) {
-                    this.pirateShip.nextDirection = {x: 0, y: 1};
+                    if (this.pirateShip.direction.x != 0) {
+                        this.pirateShip.nextDirection = {x: 0, y: 1};
+                    }
                 } else {
-                    this.pirateShip.nextDirection = {x: -1, y: 0};
+                    if (this.pirateShip.direction.y != 0) {
+                        this.pirateShip.nextDirection = {x: -1, y: 0};
+                    }
                 }
             } else {
                 if (y > 275) {
-                    this.pirateShip.nextDirection = {x: 1, y: 0};
+                    if (this.pirateShip.direction.y != 0) {
+                        this.pirateShip.nextDirection = {x: 1, y: 0};
+                    }
                 } else {
-                    this.pirateShip.nextDirection = {x: 0, y: -1};
+                    if (this.pirateShip.direction.x != 0) {
+                        this.pirateShip.nextDirection = {x: 0, y: -1};
+                    }
                 }
             }
         });
@@ -45,6 +53,12 @@ export default class Battle {
         this.cannonBalls = this.cannonBalls.filter((cannonBall) => {
             cannonBall.update();
             return cannonBall.alive;
+        });
+        this.traders = this.traders.filter((trader) => {
+            if (!trader.alive) {
+                trader.turnIntoDebris();
+            }
+            return trader.alive;
         });
 
         this.updateOccupied();

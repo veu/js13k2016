@@ -1,7 +1,7 @@
-import BlackSail from './ship/black-sail-part.js';
-import Back from './ship/back-part.js';
-import Cannon from './ship/cannon-part.js';
-import Front from './ship/front-part.js';
+import BlackSail from './ship/black-sail-part';
+import Back from './ship/back-part';
+import Cannon from './ship/cannon-part';
+import Front from './ship/front-part';
 import Ship from './ship';
 
 export default class PirateShip extends Ship {
@@ -41,7 +41,7 @@ export default class PirateShip extends Ship {
         }
 
         if (collectedDebris) {
-            const newPart = this.parts.length == 3 || Math.random() < .5 ? Cannon : Sail;
+            const newPart = this.parts.length == 3 || Math.random() < .5 ? Cannon : BlackSail;
             this.parts.splice(1, 0, new newPart(this.state, collectedDebris.position, this.parts[0].position, null));
         }
 

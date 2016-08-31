@@ -1,7 +1,8 @@
 import Sprites from './ship/sprites.js';
 
 export default class Cannonball {
-    constructor(position, direction) {
+    constructor(state, position, direction) {
+        this.state = state;
         this.position = position;
         this.direction = direction;
         this.alive = true;
@@ -16,6 +17,15 @@ export default class Cannonball {
         };
         this.ttl--;
         this.alive &= this.ttl > 0;
+
+        this.state.traders.forEach((trader) => {
+            if (trader.alive && trader.parts.some((part) => {
+                return Math.hypot(this.position.x - part.position.x, this.position.y - part.position.y) < 1; 
+            })) {
+                trader.alive = false;
+                this.alive = false;
+            }
+        });
     }
 
     draw(screen) {
