@@ -17,7 +17,7 @@ export default class Battle {
             return;
         }
 
-        this.applyKeyInput(game.input.keys);
+        this.applyKeyInput(game.input);
 
         this.pirateShip.update();
 
@@ -139,22 +139,14 @@ export default class Battle {
         return false;
     };
 
-    applyKeyInput(keys) {
-        // left
-        if (keys.has(37) && this.pirateShip.direction.y != 0) {
-            this.pirateShip.nextDirection = {x: 1, y: 0};
+    applyKeyInput(input) {
+        if (input.hasKey(37)) {
+            input.handleKey(37);
+            this.pirateShip.nextDirection = {x: -this.pirateShip.direction.y, y: this.pirateShip.direction.x};
         }
-        // up
-        if (keys.has(38) && this.pirateShip.direction.x != 0) {
-            this.pirateShip.nextDirection = {x: 0, y: -1};
-        }
-        // right
-        if (keys.has(39) && this.pirateShip.direction.y != 0) {
-            this.pirateShip.nextDirection = {x: -1, y: 0};
-        }
-        // down
-        if (keys.has(40) && this.pirateShip.direction.x != 0) {
-            this.pirateShip.nextDirection = {x: 0, y: 1};
+        if (input.hasKey(39)) {
+            input.handleKey(39);
+            this.pirateShip.nextDirection = {x: this.pirateShip.direction.y, y: -this.pirateShip.direction.x};
         }
     }
 }
