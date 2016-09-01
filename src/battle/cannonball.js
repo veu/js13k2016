@@ -18,6 +18,13 @@ export default class Cannonball {
         this.ttl--;
         this.alive &= this.ttl > 0;
 
+        if (this.state.pirateShip.parts.some((part) => {
+            return Math.hypot(this.position.x - part.position.x, this.position.y - part.position.y) < 1;
+        })) {
+            this.state.pirateShip.alive = false;
+            this.alive = false;
+        }
+
         this.state.traders.forEach((trader) => {
             if (trader.alive && trader.parts.some((part) => {
                 return Math.hypot(this.position.x - part.position.x, this.position.y - part.position.y) < 1; 
