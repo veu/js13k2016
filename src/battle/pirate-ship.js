@@ -41,7 +41,7 @@ export default class PirateShip extends Ship {
         }
 
         if (collectedDebris) {
-            const newPart = this.parts.length == 3 || Math.random() < .5 ? Cannon : BlackSail;
+            const newPart = this.parts.length == 3 || Math.random() < .3 ? Cannon : BlackSail;
             this.parts.splice(1, 0, new newPart(this.state, collectedDebris.position, this.parts[0].position, null));
         }
 
