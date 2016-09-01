@@ -10,36 +10,14 @@ export default class Battle {
         this.pirateShip = new PirateShip(this);
         this.updateOccupied();
         this.addRandomDebris();
-
-        game.input.on('click', (x, y) => {
-            if (x > 400) {
-                if (y > 275) {
-                    if (this.pirateShip.direction.x != 0) {
-                        this.pirateShip.nextDirection = {x: 0, y: 1};
-                    }
-                } else {
-                    if (this.pirateShip.direction.y != 0) {
-                        this.pirateShip.nextDirection = {x: -1, y: 0};
-                    }
-                }
-            } else {
-                if (y > 275) {
-                    if (this.pirateShip.direction.y != 0) {
-                        this.pirateShip.nextDirection = {x: 1, y: 0};
-                    }
-                } else {
-                    if (this.pirateShip.direction.x != 0) {
-                        this.pirateShip.nextDirection = {x: 0, y: -1};
-                    }
-                }
-            }
-        });
     }
 
     update(game) {
         if (!this.pirateShip.alive) {
             return;
         }
+
+        this.applyKeyInput(game.input.keys);
 
         this.pirateShip.update();
 
@@ -160,4 +138,23 @@ export default class Battle {
         }
         return false;
     };
+
+    applyKeyInput(keys) {
+        // left
+        if (keys.has(37) && this.pirateShip.direction.y != 0) {
+            this.pirateShip.nextDirection = {x: 1, y: 0};
+        }
+        // up
+        if (keys.has(38) && this.pirateShip.direction.x != 0) {
+            this.pirateShip.nextDirection = {x: 0, y: -1};
+        }
+        // right
+        if (keys.has(39) && this.pirateShip.direction.y != 0) {
+            this.pirateShip.nextDirection = {x: -1, y: 0};
+        }
+        // down
+        if (keys.has(40) && this.pirateShip.direction.x != 0) {
+            this.pirateShip.nextDirection = {x: 0, y: 1};
+        }
+    }
 }
