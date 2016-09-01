@@ -17,6 +17,7 @@ export default class Input extends Emitter {
         }).bind(this);
 
         document.onkeyup = (function (event) {
+            this.keys.delete(event.keyCode);
             this.handledKeys.delete(event.keyCode);
         }).bind(this);
     }

@@ -10,7 +10,7 @@ export default class ShipPart {
         this.paused = false;
     };
 
-    update() {
+    update(shooting) {
 
     }
 

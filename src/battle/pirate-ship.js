@@ -13,6 +13,7 @@ export default class PirateShip extends Ship {
             new Back(state, {x: 6, y: 4}, {x: 5, y: 4}, {x: 7, y: 4})
         ];
         this.direction = {x: -1, y: 0};
+        this.shooting = false;
     }
 
     update() {
@@ -46,7 +47,7 @@ export default class PirateShip extends Ship {
         }
 
         this.parts.forEach((part) => {
-            part.update();
+            part.update(this.shooting);
         });
     }
 

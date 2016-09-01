@@ -140,6 +140,8 @@ export default class Battle {
     };
 
     applyKeyInput(input) {
+        this.pirateShip.shooting = input.hasKey(32);
+
         if (input.hasKey(37)) {
             input.handleKey(37);
             this.pirateShip.nextDirection = {x: -this.pirateShip.direction.y, y: this.pirateShip.direction.x};

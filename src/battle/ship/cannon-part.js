@@ -8,8 +8,8 @@ export default class CannonPart extends ShipPart {
         this.sprite = Sprites.cannon;
     }
 
-    update() {
-        if (!this.previous) {
+    update(shooting) {
+        if (!shooting || !this.previous) {
             return;
         }
 
