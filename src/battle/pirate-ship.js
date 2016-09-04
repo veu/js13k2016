@@ -34,15 +34,27 @@ export default class PirateShip extends Ship {
             return false;
         });
 
-        this.move(!!collectedDebris);
+
+        let newPart;
+        if (collectedDebris) {
+            this.state.score += this.parts.length * 10;
+            if (this.parts.length == 3) {
+                newPart = Cannon;
+            } else if (Math.random() < .7) {
+                this.state.provisions += 5;
+            } else {
+                newPart = Math.random() < .3 ? Cannon : BlackSail;
+            }
+        }
+
+        this.move(!!newPart);
 
         if (this.state.isOutOfBounds(this.parts[0].position)) {
             this.alive = false;
             return;
         }
 
-        if (collectedDebris) {
-            const newPart = this.parts.length == 3 || Math.random() < .3 ? Cannon : BlackSail;
+        if (newPart) {
             this.parts.splice(1, 0, new newPart(this.state, collectedDebris.position, this.parts[0].position, null));
         }
 

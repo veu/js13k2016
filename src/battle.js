@@ -10,6 +10,8 @@ export default class Battle {
         this.pirateShip = new PirateShip(this);
         this.updateOccupied();
         this.addRandomDebris();
+        this.provisions = 10;
+        this.score = 0;
     }
 
     update(game) {
@@ -47,6 +49,11 @@ export default class Battle {
         if (this.traders.length == 0 && this.debris.length == 0) {
             this.addTrader();
         }
+
+        this.provisions = Math.max(this.provisions - .01, 0);
+        if (this.provisions < 1) {
+            this.pirateShip.alive = false;
+        }
     }
 
     draw(screen) {
@@ -82,6 +89,10 @@ export default class Battle {
 
         this.pirateShip.draw(screen);
         screen.drawPolygons();
+
+        screen.ctx.font = '20px serif';
+        screen.ctx.fillText('Provisions: ' + (this.provisions | 0), 600, 120);
+        screen.ctx.fillText('Score: ' + this.score, 615, 145);
     }
 
     updateOccupied() {
