@@ -3,13 +3,22 @@ export default class Screen {
         this.canvas = document.createElement('canvas');
         document.body.appendChild(this.canvas);
         this.ctx = this.canvas.getContext('2d');
+
+        this.canvas.width = 800;
+        this.canvas.height = 600;
+        this.center();
+
+        window.onresize = () => this.center();
     }
 
     reset() {
         this.canvas.width = 800;
-        this.canvas.height = 600;
-
         this.polygons = [];
+    }
+
+    center() {
+        this.canvas.style.position.left = window.innerHeight / 2  - 400 | 0;
+        this.canvas.style.position.top = window.innerHeight / 2  - 300 | 0;
     }
 
     drawCircle(x, y, radius) {

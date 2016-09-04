@@ -57,6 +57,8 @@ export default class Battle {
     }
 
     draw(screen) {
+        screen.ctx.fillStyle = '#fff';
+        screen.ctx.fillRect(0, 0, 800, 600);
         for (let x = 15; x--;) {
             for (let y = 15; y--;) {
                 screen.ctx.save();
@@ -90,6 +92,7 @@ export default class Battle {
         this.pirateShip.draw(screen);
         screen.drawPolygons();
 
+        screen.ctx.fillStyle = '#630';
         screen.ctx.font = '20px serif';
         screen.ctx.fillText('Provisions: ' + (this.provisions | 0), 600, 120);
         screen.ctx.fillText('Score: ' + this.score, 615, 145);
