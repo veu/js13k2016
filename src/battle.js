@@ -146,7 +146,7 @@ export default class Battle {
             y = Math.random() * 14 + 1 | 0;
         } while (this.isOccupied(x, y));
 
-        this.debris.push(new Debris(x, y));
+        this.debris.push(new Debris(this, x, y));
     }
 
     addTrader() {
