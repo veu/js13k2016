@@ -12,6 +12,7 @@ export default class Battle {
         this.addRandomDebris();
         this.provisions = 10;
         this.score = 0;
+        this.animationStep = 0;
     }
 
     update(game) {
@@ -61,17 +62,18 @@ export default class Battle {
         screen.ctx.fillRect(0, 0, 800, 600);
         for (let x = 15; x--;) {
             for (let y = 15; y--;) {
+                const colorModifier = (this.getOffset(x, y) - this.getOffset(x + 1, y + 1)) * 2 - Math.random() * 2;
                 screen.ctx.save();
                 screen.addPolygon(
                     x, y,
                     (x + y) + 1,
                     [
-                        0, 0,
-                        20, 10,
-                        0, 20,
-                        -20, 10
+                        0, 0 + this.getOffset(x, y),
+                        20, 10 + this.getOffset(x, y + 1),
+                        0, 20 + this.getOffset(x + 1, y + 1),
+                        -20, 10 + this.getOffset(x + 1, y)
                     ],
-                    this.pirateShip.alive ? '#4aa' : '#999'
+                    this.pirateShip.alive ? 'hsl(160,60%,'+(47-colorModifier)+'%)' : 'hsl(160,0%,'+(70-colorModifier)+'%)'
                 );
                 screen.ctx.restore();
             }
@@ -116,6 +118,11 @@ export default class Battle {
         screen.ctx.fillText('Score: ' + this.score, 0, 0);
         screen.ctx.restore();
 
+        this.animationStep++;
+    }
+
+    getOffset(x, y) {
+        return Math.sin(x + y - this.animationStep / 8) * 2;
     }
 
     updateOccupied() {
