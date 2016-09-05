@@ -94,8 +94,20 @@ export default class Battle {
 
         screen.ctx.fillStyle = '#630';
         screen.ctx.font = '20px serif';
-        screen.ctx.fillText('Provisions: ' + (this.provisions | 0), 600, 120);
-        screen.ctx.fillText('Score: ' + this.score, 615, 145);
+        screen.ctx.save();
+        screen.ctx.translate(165, 206);
+        screen.ctx.rotate(-Math.PI/2.8);
+        screen.ctx.transform(1, 0.8, 0, 1, 0, 0);
+        screen.ctx.fillText('Provisions: ' + (this.provisions | 0), 0, 0);
+        screen.ctx.restore();
+
+        screen.ctx.save();
+        screen.ctx.translate(520, 150);
+        screen.ctx.rotate(Math.PI/2.8);
+        screen.ctx.transform(1, -0.8, 0, 1, 0, 0);
+        screen.ctx.fillText('Score: ' + this.score, 0, 0);
+        screen.ctx.restore();
+
     }
 
     updateOccupied() {
