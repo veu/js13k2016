@@ -91,9 +91,6 @@ export default class Battle {
             entity.draw(screen);
         });
 
-        this.pirateShip.draw(screen);
-        screen.drawPolygons();
-
         screen.ctx.fillStyle = '#630';
         screen.ctx.font = '30px Times New Roman, serif';
         screen.ctx.textAlign = 'center';
@@ -117,6 +114,9 @@ export default class Battle {
         screen.ctx.transform(1, -0.8, 0, 1, 0, 0);
         screen.ctx.fillText('Score: ' + this.score, 0, 0);
         screen.ctx.restore();
+
+        this.pirateShip.draw(screen);
+        screen.drawPolygons();
 
         this.animationStep++;
     }
