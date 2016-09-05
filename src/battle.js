@@ -1,3 +1,5 @@
+import BlackSail from './battle/ship/black-sail-part';
+import Cannon from './battle/ship/cannon-part';
 import Debris from './battle/debris';
 import PirateShip from './battle/pirate-ship';
 import Trader from './battle/trader';
@@ -13,6 +15,13 @@ export default class Battle {
         this.provisions = 10;
         this.score = 0;
         this.animationStep = 0;
+
+        this.rewards = [
+            [7, () => { this.provisions += 5 }],
+            [2, () => BlackSail],
+            [1, () => Cannon],
+        ];
+        this.rewardSum = this.rewards.reduce((sum, [part]) => part + sum, 0);
     }
 
     update(game) {
@@ -190,6 +199,18 @@ export default class Battle {
         if (input.hasKey(39)) {
             input.handleKey(39);
             this.pirateShip.nextDirection = {x: this.pirateShip.direction.y, y: -this.pirateShip.direction.x};
+        }
+    }
+
+    rollReward() {
+        let r = Math.random() * this.rewardSum;
+
+        for (const [part, callback] of this.rewards) {
+            if (r < part) {
+                callback();
+                return;
+            }
+            r -= part;
         }
     }
 }

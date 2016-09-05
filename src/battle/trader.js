@@ -77,7 +77,7 @@ export default class Trader extends Ship {
 
     turnIntoDebris() {
         this.parts.forEach((part) => {
-            this.state.debris.push(new Debris(part.position.x, part.position.y));
+            this.state.debris.push(new Debris(this.state, part.position.x, part.position.y));
         });
     }
 }

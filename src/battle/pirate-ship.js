@@ -40,10 +40,8 @@ export default class PirateShip extends Ship {
             this.state.score += this.parts.length * 10;
             if (this.parts.length == 3) {
                 newPart = Cannon;
-            } else if (Math.random() < .7) {
-                this.state.provisions += 5;
             } else {
-                newPart = Math.random() < .3 ? Cannon : BlackSail;
+                newPart = this.state.rollReward();
             }
         }
 
