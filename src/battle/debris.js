@@ -12,7 +12,7 @@ export default class Debris {
     draw(screen) {
         screen.addCall(
             this.position.x, this.position.y,
-            this.position.x + this.position.y - this.orientation,
+            this.position.x + this.position.y - this.orientation + 0.001,
             () => {
                 screen.ctx.fillStyle = '#b86';
                 screen.ctx.transform(1, this.orientation, 0, 1, 0, 0);
@@ -21,7 +21,7 @@ export default class Debris {
         );
         screen.addCall(
             this.position.x, this.position.y,
-            this.position.x + this.position.y + this.orientation,
+            this.position.x + this.position.y + this.orientation + 0.001,
             () => {
                 screen.ctx.fillStyle = '#b86';
                 screen.ctx.transform(1, this.orientation, 0, 1, 0, 0);
