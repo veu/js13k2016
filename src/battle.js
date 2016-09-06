@@ -3,6 +3,7 @@ import Cannon from './battle/ship/cannon-part';
 import Debris from './battle/debris';
 import PirateShip from './battle/pirate-ship';
 import Trader from './battle/trader';
+import SpinGlitch from './battle/glitches';
 
 export default class Battle {
     constructor(game) {
@@ -16,11 +17,18 @@ export default class Battle {
         this.provisions = 10;
         this.score = 0;
         this.animationStep = 0;
+        this.glitchActive = false;
+        this.spin = 0;
 
         this.rewards = [
-            [7, () => { this.provisions += 5 }],
-            [2, () => BlackSail],
-            [1, () => Cannon],
+            [10, () => { this.provisions += 5 }],
+            [4, () => BlackSail],
+            [2, () => Cannon],
+            [1, () => {
+                if (!this.glitchActive) {
+                    this.effects.push(new SpinGlitch(this));
+                }
+            }]
         ];
         this.rewardSum = this.rewards.reduce((sum, [part]) => part + sum, 0);
     }
@@ -114,6 +122,13 @@ export default class Battle {
         screen.ctx.font = '16px serif';
         screen.ctx.fillText('of the Glitchy Sea', 400, 98);
 
+        this.pirateShip.draw(screen);
+
+        screen.ctx.save();
+        screen.ctx.translate(400, 362);
+        screen.ctx.rotate(this.spin);
+        screen.ctx.translate(-400, -362);
+
         screen.ctx.font = '20px Times New Roman, serif';
         screen.ctx.textAlign = 'left';
         screen.ctx.save();
@@ -130,8 +145,9 @@ export default class Battle {
         screen.ctx.fillText('Score: ' + this.score, 0, 0);
         screen.ctx.restore();
 
-        this.pirateShip.draw(screen);
         screen.drawPolygons();
+
+        screen.ctx.restore();
 
         this.animationStep++;
     }
