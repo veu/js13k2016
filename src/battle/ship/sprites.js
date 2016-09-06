@@ -36,6 +36,13 @@ function createSpriteBundle(cb) {
         baseDark: darken(sprite),
         reversedDark: darken(reversed)
     }
+} 
+
+function createShipGradient(ctx) {
+    const gradient = ctx.createLinearGradient(0, 0, 0, 30);
+    gradient.addColorStop(0.5, '#852');
+    gradient.addColorStop(1, '#630');
+    return gradient;
 }
 
 const Sprites = {
@@ -45,7 +52,7 @@ const Sprites = {
         ctx.lineTo(22, 10);
         ctx.lineTo(22, 30);
         ctx.quadraticCurveTo(0, 30, 0, 15);
-        ctx.fillStyle = '#852';
+        ctx.fillStyle = createShipGradient(ctx);
         ctx.fill();
     }),
     sail: createSpriteBundle(function (canvas, ctx) {
@@ -57,7 +64,7 @@ const Sprites = {
 
         ctx.fillStyle = '#963';
         ctx.fillRect(10, 0, 2, 15);
-        ctx.fillStyle = '#852';
+        ctx.fillStyle = createShipGradient(ctx);
         ctx.fillRect(0, 15, 22, 15);
     }),
     blackSail: createSpriteBundle(function (canvas, ctx) {
@@ -69,11 +76,11 @@ const Sprites = {
 
         ctx.fillStyle = '#963';
         ctx.fillRect(10, 0, 2, 15);
-        ctx.fillStyle = '#852';
+        ctx.fillStyle = createShipGradient(ctx);
         ctx.fillRect(0, 15, 22, 15);
     }),
     cannon: createSpriteBundle(function (canvas, ctx) {
-        ctx.fillStyle = '#852';
+        ctx.fillStyle = createShipGradient(ctx);
         ctx.fillRect(0, 15, 22, 15);
 
         ctx.beginPath();
@@ -87,7 +94,7 @@ const Sprites = {
     }),
     front: createSpriteBundle(function (canvas, ctx) {
         ctx.beginPath();
-        ctx.fillStyle = '#852';
+        ctx.fillStyle = createShipGradient(ctx);
         ctx.fillRect(0, 13, 22, 2);
         ctx.moveTo(0, 15);
         ctx.lineTo(22, 15);
