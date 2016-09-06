@@ -9,6 +9,7 @@ export default class Battle {
         this.cannonBalls = [];
         this.debris = [];
         this.traders = [];
+        this.effects = [];
         this.pirateShip = new PirateShip(this);
         this.updateOccupied();
         this.addRandomDebris();
@@ -30,6 +31,11 @@ export default class Battle {
         }
 
         this.applyKeyInput(game.input);
+
+        this.effects = this.effects.filter((effect) => {
+            effect.update();
+            return effect.alive;
+        });
 
         this.pirateShip.update();
 

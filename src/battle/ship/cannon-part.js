@@ -1,6 +1,18 @@
-import Cannonball from '../cannonball.js';
-import ShipPart from './ship-part.js';
-import Sprites from './sprites.js';
+import Cannonball from '../cannonball';
+import ShipPart from './ship-part';
+import Sprites from './sprites';
+import Effect from '../../effect';
+
+class FiringEffect extends Effect {
+    constructor(subject) {
+        super(subject, 10);
+        subject.sprite = Sprites.cannonFiring;
+    }
+
+    finish() {
+        this.subject.sprite = Sprites.cannon;
+    }
+}
 
 export default class CannonPart extends ShipPart {
     constructor(state, position, next, previous) {
@@ -12,6 +24,8 @@ export default class CannonPart extends ShipPart {
         if (!shooting || !this.previous) {
             return;
         }
+
+        this.state.effects.push(new FiringEffect(this));
 
         const position = {x: (this.position.x + this.previous.x) / 2, y: (this.position.y + this.previous.y) / 2};
         const x = this.next.x - this.position.x;

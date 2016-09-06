@@ -92,6 +92,19 @@ const Sprites = {
         ctx.fillStyle = '#000';
         ctx.fill();
     }),
+    cannonFiring: createSpriteBundle(function (canvas, ctx) {
+        ctx.fillStyle = createShipGradient(ctx);
+        ctx.fillRect(0, 15, 22, 15);
+
+        ctx.beginPath();
+        ctx.arc(11, 15, 4, 0, 7, 0);
+        ctx.fillStyle = '#666';
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(11, 15, 2, 0, 7, 0);
+        ctx.fillStyle = '#d20';
+        ctx.fill();
+    }),
     front: createSpriteBundle(function (canvas, ctx) {
         ctx.beginPath();
         ctx.fillStyle = createShipGradient(ctx);
