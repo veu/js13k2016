@@ -3,7 +3,6 @@ import Effect from '../effect';
 class Glitch extends Effect {
     constructor(subject, ttl) {
         super(subject, ttl);
-        this.max = ttl;
         subject.glitchActive = true;
     }
 
@@ -17,8 +16,8 @@ export class SpinGlitch extends Glitch {
         super(subject, 30 * 10);
     }
 
-    step() {
-        this.subject.spin = this.ttl / this.max * Math.PI * 2;
+    step(progress) {
+        this.subject.spin = (1 - progress) * Math.PI * 2;
     }
 }
 
@@ -27,7 +26,7 @@ export class StormGlitch extends Glitch {
         super(subject, 30 * 10);
     }
 
-    step() {
-        this.subject.stormFactor = 1 - Math.abs(1 - this.ttl / this.max * 2);
+    step(progress) {
+        this.subject.stormFactor = 1 - Math.abs(progress * 2 - 1);
     }
 }

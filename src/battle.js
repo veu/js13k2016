@@ -22,6 +22,7 @@ export default class Battle {
         this.spin = 0;
         this.stormFactor = 0;
         this.message = new Message(
+            this,
             'Hunt traders crossing the Glitchy Sea and keep your provisions in check.',
             'Use left and right arrow keys to steer.'
         );
@@ -41,6 +42,10 @@ export default class Battle {
     }
 
     update(game) {
+        this.effects = this.effects.filter((effect) => {
+            effect.update();
+            return effect.alive;
+        });
         if (this.message) {
             if (game.input.hasKey(32)) {
                 game.input.handleKey(32);
@@ -57,11 +62,6 @@ export default class Battle {
         }
 
         this.applyKeyInput(game.input);
-
-        this.effects = this.effects.filter((effect) => {
-            effect.update();
-            return effect.alive;
-        });
 
         this.pirateShip.update();
 

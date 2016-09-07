@@ -1,11 +1,44 @@
+import Effect from '../effect';
+
+class FadeIn extends Effect {
+    constructor(subject) {
+        super(subject, 12);
+    }
+
+    step(progress) {
+        this.subject.opacity = progress;
+    }
+}
+
+class FadeOut extends Effect {
+    constructor(subject, callback) {
+        super(subject, 12);
+        this.callback = callback;
+    }
+
+    step(progress) {
+        this.subject.opacity = 1 - progress;
+    }
+
+    finish() {
+        this.callback();
+    }
+}
+
 export default class Message {
-    constructor(...messages) {
+    constructor(state, ...messages) {
+        this.state = state;
         this.messages = messages;
         this.alive = true;
         this.currentMessage = 0;
+        this.opacity = 1;
+
+        state.effects.push(new FadeIn(this));
     }
 
     draw(screen) {
+        screen.ctx.globalAlpha = this.opacity;
+
         screen.ctx.font = '16px Times New Roman, serif';
 
         const boxWidth = screen.ctx.measureText(this.messages[this.currentMessage]).width + 20;
@@ -21,12 +54,15 @@ export default class Message {
 
         screen.ctx.font = '14px Times New Roman, serif';
         screen.ctx.fillText('Press space to continue.', 400, 330);
+
+        screen.globalAlpha = 1;
     }
 
     continue() {
-        this.currentMessage++;
-        if (this.currentMessage == this.messages.length) {
-            this.alive = false;
+        if (this.currentMessage == this.messages.length - 1) {
+            this.state.effects.push(new FadeOut(this, () => { this.alive = false }));
+            return;
         }
+        this.currentMessage++;
     }
 }

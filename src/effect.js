@@ -2,13 +2,14 @@ export default class Effect {
     constructor(subject, ttl) {
         this.subject = subject;
         this.ttl = ttl;
+        this.max = ttl;
         this.alive = true;
     }
 
     update() {
         this.ttl--;
         if (this.ttl > 0) {
-            this.step();
+            this.step(1 - this.ttl / this.max);
             return;
         }
 
@@ -16,7 +17,7 @@ export default class Effect {
         this.finish();
     }
 
-    step() {
+    step(progress) {
     }
 
     finish() {
