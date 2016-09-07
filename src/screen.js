@@ -39,7 +39,7 @@ export default class Screen {
         this.polygons = this.polygons.sort((a, b) => a[2] - b[2]);
         this.polygons.forEach((polygon) => {
             this.ctx.save();
-            this.ctx.translate(400, 200);
+            this.ctx.translate(400, 150);
             this.translate3d(polygon[0], polygon[1]);
 
             if (typeof polygon[3] !== 'function') { // polygon

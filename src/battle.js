@@ -1,6 +1,7 @@
 import BlackSail from './battle/ship/black-sail-part';
 import Cannon from './battle/ship/cannon-part';
 import Debris from './battle/debris';
+import Message from './battle/message';
 import PirateShip from './battle/pirate-ship';
 import Trader from './battle/trader';
 import {SpinGlitch, StormGlitch} from './battle/glitches';
@@ -20,6 +21,10 @@ export default class Battle {
         this.glitchActive = false;
         this.spin = 0;
         this.stormFactor = 0;
+        this.message = new Message(
+            'Hunt traders crossing the Glitchy Sea and keep your provisions in check.',
+            'Use left and right arrow keys to steer.'
+        );
 
         this.rewards = [
             [8, () => { this.provisions += 5 }],
@@ -36,6 +41,17 @@ export default class Battle {
     }
 
     update(game) {
+        if (this.message) {
+            if (game.input.hasKey(32)) {
+                game.input.handleKey(32);
+                this.message.continue();
+            }
+            if (!this.message.alive) {
+                this.message = null
+            }
+            return;
+        }
+
         if (!this.pirateShip.alive) {
             return;
         }
@@ -75,15 +91,17 @@ export default class Battle {
         if (this.provisions < 1) {
             this.pirateShip.alive = false;
         }
+
+        this.animationStep++;
     }
 
     draw(screen) {
         screen.ctx.fillStyle = '#fff';
         screen.ctx.fillRect(0, 0, 800, 600);
+
         for (let x = 15; x--;) {
             for (let y = 15; y--;) {
                 const colorModifier = (this.getOffset(x, y) - this.getOffset(x + 1, y + 1)) * 2 - Math.random() * 2;
-                screen.ctx.save();
                 screen.addPolygon(
                     x, y,
                     (x + y) + 1,
@@ -95,7 +113,6 @@ export default class Battle {
                     ],
                     this.pirateShip.alive ? 'hsl(160,60%,'+(47-colorModifier)+'%)' : 'hsl(160,0%,'+(70-colorModifier)+'%)'
                 );
-                screen.ctx.restore();
             }
         }
 
@@ -129,14 +146,14 @@ export default class Battle {
         screen.ctx.font = '20px Times New Roman, serif';
         screen.ctx.textAlign = 'left';
         screen.ctx.save();
-        screen.ctx.translate(165, 306);
+        screen.ctx.translate(165, 256);
         screen.ctx.rotate(-Math.PI/2.8);
         screen.ctx.transform(1, 0.8, 0, 1, 0, 0);
         screen.ctx.fillText('Provisions: ' + (this.provisions | 0), 0, 0);
         screen.ctx.restore();
 
         screen.ctx.save();
-        screen.ctx.translate(520, 250);
+        screen.ctx.translate(520, 200);
         screen.ctx.rotate(Math.PI/2.8);
         screen.ctx.transform(1, -0.8, 0, 1, 0, 0);
         screen.ctx.fillText('Score: ' + this.score, 0, 0);
@@ -146,7 +163,9 @@ export default class Battle {
 
         screen.ctx.restore();
 
-        this.animationStep++;
+        if (this.message) {
+            this.message.draw(screen);
+        }
     }
 
     getOffset(x, y) {
