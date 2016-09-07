@@ -1,17 +1,33 @@
 import Effect from '../effect';
 
-export default class SpinGlitch extends Effect {
+class Glitch extends Effect {
+    constructor(subject, ttl) {
+        super(subject, ttl);
+        this.max = ttl;
+        subject.glitchActive = true;
+    }
+
+    finish() {
+        this.subject.glitchActive = false;
+    }
+}
+
+export class SpinGlitch extends Glitch {
     constructor(subject) {
         super(subject, 30 * 10);
-        this.max = 30 * 10;
-        subject.glitchActive = true;
     }
 
     step() {
         this.subject.spin = this.ttl / this.max * Math.PI * 2;
     }
+}
 
-    finish() {
-        this.subject.glitchActive = false;
+export class StormGlitch extends Glitch {
+    constructor(subject) {
+        super(subject, 30 * 10);
+    }
+
+    step() {
+        this.subject.stormFactor = 1 - Math.abs(1 - this.ttl / this.max * 2);
     }
 }

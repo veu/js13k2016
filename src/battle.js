@@ -3,7 +3,7 @@ import Cannon from './battle/ship/cannon-part';
 import Debris from './battle/debris';
 import PirateShip from './battle/pirate-ship';
 import Trader from './battle/trader';
-import SpinGlitch from './battle/glitches';
+import {SpinGlitch, StormGlitch} from './battle/glitches';
 
 export default class Battle {
     constructor(game) {
@@ -19,6 +19,7 @@ export default class Battle {
         this.animationStep = 0;
         this.glitchActive = false;
         this.spin = 0;
+        this.stormFactor = 0;
 
         this.rewards = [
             [8, () => { this.provisions += 5 }],
@@ -26,9 +27,10 @@ export default class Battle {
             [2, () => Cannon],
             [1, () => {
                 if (!this.glitchActive) {
-                    this.effects.push(new SpinGlitch(this));
+                    const Glitch = [SpinGlitch, StormGlitch][Math.random() * 2 | 0];
+                    this.effects.push(new Glitch(this));
                 }
-            }]
+            }],
         ];
         this.rewardSum = this.rewards.reduce((sum, [part]) => part + sum, 0);
     }
@@ -148,7 +150,7 @@ export default class Battle {
     }
 
     getOffset(x, y) {
-        return Math.sin(x + y - this.animationStep / 8) * 2;
+        return (1 - this.stormFactor) * 2 * Math.sin(x + y - this.animationStep / 8) + this.stormFactor * (4 - 12 * Math.random());
     }
 
     updateOccupied() {
