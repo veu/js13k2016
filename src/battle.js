@@ -21,7 +21,7 @@ export default class Battle {
         this.spin = 0;
 
         this.rewards = [
-            [10, () => { this.provisions += 5 }],
+            [8, () => { this.provisions += 5 }],
             [4, () => BlackSail],
             [2, () => Cannon],
             [1, () => {
