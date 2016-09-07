@@ -12,6 +12,7 @@ export default class Trader extends Ship {
             new Front(state, entrance, next, null)
         ];
         this.direction = direction;
+        this.hp = 2;
     }
 
     update() {
