@@ -2,6 +2,7 @@ import BlackSail from './ship/black-sail-part';
 import Back from './ship/back-part';
 import Cannon from './ship/cannon-part';
 import Front from './ship/front-part';
+import Message from './message';
 import Ship from './ship';
 
 export default class PirateShip extends Ship {
@@ -39,6 +40,7 @@ export default class PirateShip extends Ship {
         if (collectedDebris) {
             this.state.score += this.parts.length * 10;
             if (this.parts.length == 3) {
+                this.state.message = new Message(this.state, 'You got your first cannon. Press space to fire.');
                 newPart = Cannon;
             } else {
                 newPart = this.state.rollReward();

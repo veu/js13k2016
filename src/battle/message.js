@@ -3,6 +3,7 @@ import Effect from '../effect';
 class FadeIn extends Effect {
     constructor(subject) {
         super(subject, 12);
+        subject.opacity = 0;
     }
 
     step(progress) {
