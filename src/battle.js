@@ -46,6 +46,7 @@ export default class Battle {
             effect.update();
             return effect.alive;
         });
+
         if (this.message) {
             if (game.input.hasKey(32)) {
                 game.input.handleKey(32);
@@ -96,9 +97,6 @@ export default class Battle {
     }
 
     draw(screen) {
-        screen.ctx.fillStyle = '#fff';
-        screen.ctx.fillRect(0, 0, 800, 600);
-
         for (let x = 15; x--;) {
             for (let y = 15; y--;) {
                 const colorModifier = (this.getOffset(x, y) - this.getOffset(x + 1, y + 1)) * 2 - Math.random() * 2;
@@ -139,9 +137,9 @@ export default class Battle {
         this.pirateShip.draw(screen);
 
         screen.ctx.save();
-        screen.ctx.translate(400, 362);
+        screen.ctx.translate(400, 310);
         screen.ctx.rotate(this.spin);
-        screen.ctx.translate(-400, -362);
+        screen.ctx.translate(-400, -310);
 
         screen.ctx.font = '20px Times New Roman, serif';
         screen.ctx.textAlign = 'left';

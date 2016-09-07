@@ -5,7 +5,7 @@ export default class Screen {
         this.ctx = this.canvas.getContext('2d');
 
         this.canvas.width = 800;
-        this.canvas.height = 600;
+        this.canvas.height = 640;
         this.center();
 
         window.onresize = () => this.center();
