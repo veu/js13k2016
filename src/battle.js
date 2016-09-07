@@ -58,12 +58,7 @@ export default class Battle {
             cannonBall.update();
             return cannonBall.alive;
         });
-        this.traders = this.traders.filter((trader) => {
-            if (!trader.alive) {
-                trader.turnIntoDebris();
-            }
-            return trader.alive;
-        });
+        this.traders = this.traders.filter((trader) => trader.alive);
 
         this.updateOccupied();
         if (this.isOccupied(this.pirateShip.parts[0].position.x, this.pirateShip.parts[0].position.y)) {

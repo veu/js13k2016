@@ -4,11 +4,12 @@ export default class Ship {
         this.animationStep = 0;
         this.alive = true;
         this.nextDirection = null;
+        this.offset = 0;
     }
 
     draw(screen) {
         this.parts.map((part) => {
-            part.draw(screen, this.animationStep);
+            part.draw(screen, this.animationStep, this.offset);
         });
     }
 

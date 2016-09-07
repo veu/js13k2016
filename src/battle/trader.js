@@ -1,8 +1,26 @@
 import Back from './ship/back-part.js';
 import Debris from './debris.js';
+import Effect from '../effect';
 import Front from './ship/front-part.js';
 import Sail from './ship/sail-part.js';
 import Ship from './ship';
+
+class SinkEffect extends Effect {
+    constructor(subject, callback) {
+        super(subject, 30);
+        this.callback = callback;
+        subject.offset = 0;
+        this.destroyed = false;
+    }
+
+    step() {
+        this.subject.offset += .5;
+    }
+
+    finish() {
+        this.callback();
+    }
+}
 
 export default class Trader extends Ship {
     constructor(state, entrance, direction) {
@@ -78,12 +96,18 @@ export default class Trader extends Ship {
 
     hit() {
         this.hp -= Math.random() * 2 + 1 | 0;
-        this.alive = (this.hp > 0);
+        if (!this.destroyed && this.hp <= 0) {
+            this.destroyed = true;
+            this.turnIntoDebris();
+        }
     }
 
     turnIntoDebris() {
-        this.parts.forEach((part) => {
-            this.state.debris.push(new Debris(this.state, part.position.x, part.position.y));
-        });
+        this.state.effects.push(new SinkEffect(this, () => {
+            this.alive = false;
+            this.parts.forEach((part) => {
+                this.state.debris.push(new Debris(this.state, part.position.x, part.position.y));
+            });
+        }));
     }
 }
