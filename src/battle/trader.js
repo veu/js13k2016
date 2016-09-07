@@ -75,6 +75,11 @@ export default class Trader extends Ship {
         this.alive = false;
     }
 
+    hit() {
+        this.hp -= Math.random() * 2 + 1 | 0;
+        this.alive = (this.hp > 0);
+    }
+
     turnIntoDebris() {
         this.parts.forEach((part) => {
             this.state.debris.push(new Debris(this.state, part.position.x, part.position.y));

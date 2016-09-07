@@ -22,7 +22,7 @@ export default class Cannonball {
             if (trader.alive && trader.parts.some((part) => {
                 return Math.hypot(this.position.x - part.position.x, this.position.y - part.position.y) < 1; 
             })) {
-                trader.alive = false;
+                trader.hit();
                 this.alive = false;
             }
         });
