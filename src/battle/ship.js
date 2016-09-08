@@ -1,3 +1,22 @@
+import Effect from '../effect';
+
+export class SinkEffect extends Effect {
+    constructor(subject, callback) {
+        super(subject, 30);
+        this.callback = callback;
+        subject.offset = 0;
+        this.destroyed = false;
+    }
+
+    step() {
+        this.subject.offset += .5;
+    }
+
+    finish() {
+        this.callback();
+    }
+}
+
 export default class Ship {
     constructor(state) {
         this.state = state;

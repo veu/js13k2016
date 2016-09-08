@@ -1,26 +1,9 @@
 import Back from './ship/back-part.js';
 import Debris from './debris.js';
-import Effect from '../effect';
 import Front from './ship/front-part.js';
 import Sail from './ship/sail-part.js';
 import Ship from './ship';
-
-class SinkEffect extends Effect {
-    constructor(subject, callback) {
-        super(subject, 30);
-        this.callback = callback;
-        subject.offset = 0;
-        this.destroyed = false;
-    }
-
-    step() {
-        this.subject.offset += .5;
-    }
-
-    finish() {
-        this.callback();
-    }
-}
+import {SinkEffect} from './ship';
 
 export default class Trader extends Ship {
     constructor(state, entrance, direction) {

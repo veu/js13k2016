@@ -4,6 +4,7 @@ import Cannon from './ship/cannon-part';
 import Front from './ship/front-part';
 import Message from './message';
 import Ship from './ship';
+import {SinkEffect} from './ship';
 
 export default class PirateShip extends Ship {
     constructor(state) {
@@ -15,6 +16,7 @@ export default class PirateShip extends Ship {
         ];
         this.direction = {x: -1, y: 0};
         this.shooting = false;
+        this.paused = false;
     }
 
     update() {
@@ -40,18 +42,25 @@ export default class PirateShip extends Ship {
         if (collectedDebris) {
             this.state.score += this.parts.length * 10;
             if (this.parts.length == 3) {
-                this.state.message = new Message(this.state, 'You got your first cannon. Press space to fire.');
+                this.state.message = new Message(this.state, ['You got your first cannon. Press space to fire.']);
                 newPart = Cannon;
             } else {
                 newPart = this.state.rollReward();
             }
         }
 
-        this.move(!!newPart);
-
-        if (this.state.isOutOfBounds(this.parts[0].position)) {
-            this.alive = false;
+        if (!this.paused && this.state.isOutOfBounds(this.parts[0].position)) {
+            this.paused = true;
+            this.parts.forEach(part => part.paused = true);
+            this.state.effects.push(new SinkEffect(this, () => {
+                this.state.message = new Message(this.state, ['You’re shark food now. Let that sink in…'], 'or press space to try again.');
+                this.alive = false;
+            }));
             return;
+        }
+
+        if (!this.paused) {
+            this.move(!!newPart);
         }
 
         if (newPart) {

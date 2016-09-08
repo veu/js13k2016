@@ -27,9 +27,10 @@ class FadeOut extends Effect {
 }
 
 export default class Message {
-    constructor(state, ...messages) {
+    constructor(state, messages, sub = null) {
         this.state = state;
         this.messages = messages;
+        this.sub = sub || 'Press space to continue.';
         this.alive = true;
         this.currentMessage = 0;
         this.opacity = 1;
@@ -54,7 +55,7 @@ export default class Message {
         screen.ctx.fillRect(400 - 200 / 2 + 10, 314, 200 - 20, 1);
 
         screen.ctx.font = '14px Times New Roman, serif';
-        screen.ctx.fillText('Press space to continue.', 400, 330);
+        screen.ctx.fillText(this.sub, 400, 330);
 
         screen.globalAlpha = 1;
     }
