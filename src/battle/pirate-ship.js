@@ -42,20 +42,17 @@ export default class PirateShip extends Ship {
         if (collectedDebris) {
             this.state.score += this.parts.length * 10;
             if (this.parts.length == 3) {
-                this.state.message = new Message(this.state, ['You got your first cannon. Press space to fire.']);
+                if (this.state.withTutorial) {
+                    this.state.message = new Message(this.state, ['You got your first cannon. Press space to fire.']);
+                }
                 newPart = Cannon;
             } else {
                 newPart = this.state.rollReward();
             }
         }
 
-        if (!this.paused && this.state.isOutOfBounds(this.parts[0].position)) {
-            this.paused = true;
-            this.parts.forEach(part => part.paused = true);
-            this.state.effects.push(new SinkEffect(this, () => {
-                this.state.message = new Message(this.state, ['You’re shark food now. Let that sink in…'], 'or press space to try again.');
-                this.alive = false;
-            }));
+        if (this.state.isOutOfBounds(this.parts[0].position)) {
+            this.die();
             return;
         }
 
@@ -78,5 +75,17 @@ export default class PirateShip extends Ship {
                 occupied.push(part.previous);
             }
         }
+    }
+
+    die() {
+        if (this.paused) {
+            return;
+        }
+        this.paused = true;
+        this.parts.forEach(part => part.paused = true);
+        this.state.effects.push(new SinkEffect(this, () => {
+            this.state.message = new Message(this.state, ['You’re shark food now. Let that sink in…'], 'or press space to try again.', false);
+            this.alive = false;
+        }));
     }
 }

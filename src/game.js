@@ -8,7 +8,7 @@ export default function Game() {
     this.input = new Input();
     Audio.play();
 
-    this.currentState = new Battle(this);
+    this.currentState = new Battle(this, true);
 
     this.start = function () {
         setInterval(this.update.bind(this), 1000 / 30);

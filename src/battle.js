@@ -7,7 +7,8 @@ import Trader from './battle/trader';
 import {SpinGlitch, StormGlitch} from './battle/glitches';
 
 export default class Battle {
-    constructor(game) {
+    constructor(game, withTutorial = false) {
+        this.withTutorial = withTutorial;
         this.cannonBalls = [];
         this.debris = [];
         this.traders = [];
@@ -21,10 +22,12 @@ export default class Battle {
         this.glitchActive = false;
         this.spin = 0;
         this.stormFactor = 0;
-        this.message = new Message(this, [
-            'Hunt traders crossing the Glitchy Sea and keep your provisions in check.',
-            'Use left and right arrow keys to steer.'
-        ]);
+        if (withTutorial) {
+            this.message = new Message(this, [
+                'Hunt traders crossing the Glitchy Sea and keep your provisions in check.',
+                'Use left and right arrow keys to steer.'
+            ]);
+        }
 
         this.rewards = [
             [8, () => { this.provisions += 5 }],
@@ -44,18 +47,22 @@ export default class Battle {
         this.effects.forEach(effect => { effect.update() });
         this.effects = this.effects.filter(effect => effect.alive);
 
-        if (this.message) {
+        if (!this.pirateShip.alive) {
             if (game.input.hasKey(32)) {
                 game.input.handleKey(32);
-                this.message.continue();
-            }
-            if (!this.message.alive) {
-                this.message = null
+                game.currentState = new Battle(game);
             }
             return;
         }
 
-        if (!this.pirateShip.alive) {
+        if (this.message) {
+            if (game.input.hasKey(32)) {
+                this.message.continue();
+                game.input.handleKey(32);
+            }
+            if (!this.message.alive) {
+                this.message = null
+            }
             return;
         }
 
@@ -78,7 +85,7 @@ export default class Battle {
 
         this.updateOccupied();
         if (this.isOccupied(this.pirateShip.parts[0].position.x, this.pirateShip.parts[0].position.y)) {
-            this.pirateShip.alive = false;
+            this.pirateShip.die();
             return;
         }
         if (this.traders.length == 0 && this.debris.length == 0) {
@@ -87,7 +94,7 @@ export default class Battle {
 
         this.provisions = Math.max(this.provisions - .01, 0);
         if (this.provisions < 1) {
-            this.pirateShip.alive = false;
+            this.pirateShip.die();
         }
 
         this.animationStep++;
