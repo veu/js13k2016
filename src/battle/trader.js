@@ -17,7 +17,7 @@ export default class Trader extends Ship {
     }
 
     update() {
-        this.animationStep = (this.animationStep + 1) % 16;
+        this.animationStep = (this.animationStep + 1) % 12;
         if (this.animationStep !== 0) {
             return;
         }

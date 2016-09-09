@@ -16,10 +16,10 @@ export default class ShipPart {
 
     draw(screen, animationStep, offset) {
         if (this.paused) {
-            animationStep = 15;
+            animationStep = 12;
         }
 
-        const spriteOffset = 22 * animationStep / 15;
+        const spriteOffset = 22 * animationStep / 12;
 
         if (this.next) {
             screen.addCall(
