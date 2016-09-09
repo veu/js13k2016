@@ -1,6 +1,7 @@
 import BlackSail from './battle/ship/black-sail-part';
 import Cannon from './battle/ship/cannon-part';
 import Debris from './battle/debris';
+import Highscore from './battle/highscore';
 import Message from './battle/message';
 import PirateShip from './battle/pirate-ship';
 import Trader from './battle/trader';
@@ -22,6 +23,8 @@ export default class Battle {
         this.glitchActive = false;
         this.spin = 0;
         this.stormFactor = 0;
+        this.highscore = new Highscore();
+
         if (withTutorial) {
             this.message = new Message(this, [
                 'Hunt traders crossing the Glitchy Sea and keep your provisions in check.',
@@ -153,6 +156,14 @@ export default class Battle {
         screen.ctx.fillText('Score: ' + this.score, 0, 0);
         screen.ctx.restore();
 
+
+        screen.ctx.save();
+        screen.ctx.translate(640, 370);
+        screen.ctx.rotate(Math.PI - Math.PI/2.8);
+        screen.ctx.transform(1, 0.8, 0, 1, 0, 0);
+        screen.ctx.fillText('Highcore: ' + this.highscore.get(), 0, 0);
+        screen.ctx.restore();
+
         screen.drawPolygons();
 
         screen.ctx.restore();
@@ -244,5 +255,10 @@ export default class Battle {
             }
             r -= part;
         }
+    }
+
+    increaseScore(delta) {
+        this.score += delta;
+        this.highscore.update(this.score);
     }
 }

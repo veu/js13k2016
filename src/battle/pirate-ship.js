@@ -36,7 +36,7 @@ export default class PirateShip extends Ship {
 
         let newPart;
         if (collectedDebris) {
-            this.state.score += this.parts.length * 10;
+            this.state.increaseScore(this.parts.length * 10);
             if (this.parts.length == 3) {
                 if (this.state.withTutorial) {
                     this.state.message = new Message(this.state, ['You got your first cannon. Press space to fire.']);
