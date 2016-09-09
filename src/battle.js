@@ -88,7 +88,7 @@ export default class Battle {
             this.pirateShip.die();
             return;
         }
-        if (this.traders.length == 0 && this.debris.length == 0) {
+        if (this.traders.length == 0) {
             this.addTrader();
         }
 
