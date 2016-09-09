@@ -1,8 +1,5 @@
-import Emitter from './emitter.js';
-
-export default class Input extends Emitter {
+export default class Input {
     constructor() {
-        super();
         this.keys = new Set();
         this.handledKeys = new Set();
 
