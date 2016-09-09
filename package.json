@@ -1,12 +1,8 @@
 {
   "name": "js13k2016",
   "version": "1.0.0",
-  "description": "",
-  "main": "build.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
+  "description": "JS13k 2016 entry",
+  "author": "Rebecca",
   "license": "MIT",
   "devDependencies": {
     "babel-preset-es2015": "^6.14.0",
