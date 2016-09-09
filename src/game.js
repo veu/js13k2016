@@ -1,14 +1,15 @@
-import Battle from './battle.js';
-import Input from './input.js';
-import Screen from './screen.js';
 import Audio from './audio';
+import Battle from './battle';
+import Input from './input';
+import Screen from './screen';
+import Title from './title';
 
 export default function Game() {
     this.screen = new Screen();
     this.input = new Input();
     Audio.play();
 
-    this.currentState = new Battle(this, true);
+    this.currentState = new Title();
 
     this.start = function () {
         setInterval(this.update.bind(this), 1000 / 30);

@@ -130,14 +130,6 @@ export default class Battle {
             entity.draw(screen);
         });
 
-        screen.ctx.fillStyle = '#630';
-        screen.ctx.font = '30px Times New Roman, serif';
-        screen.ctx.textAlign = 'center';
-        screen.ctx.fillRect(300, 78, 200, 1);
-        screen.ctx.fillText('Pirates', 400, 70);
-        screen.ctx.font = '16px serif';
-        screen.ctx.fillText('of the Glitchy Sea', 400, 98);
-
         this.pirateShip.draw(screen);
 
         screen.ctx.save();
