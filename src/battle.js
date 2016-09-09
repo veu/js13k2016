@@ -28,7 +28,7 @@ export default class Battle {
         if (withTutorial) {
             this.message = new Message(this, [
                 'Hunt traders crossing the Glitchy Sea and keep your provisions in check.',
-                'Use left and right arrow keys to steer.'
+                'Use left and right arrow keys to steer, T to toggle music.'
             ]);
         }
 
