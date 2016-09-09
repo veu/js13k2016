@@ -250,8 +250,7 @@ export default class Battle {
 
         for (const [part, callback] of this.rewards) {
             if (r < part) {
-                callback();
-                return;
+                return callback();
             }
             r -= part;
         }
