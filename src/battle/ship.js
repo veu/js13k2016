@@ -9,7 +9,7 @@ export class SinkEffect extends Effect {
     }
 
     step() {
-        this.subject.offset += .5;
+        this.subject.offset ++;
     }
 
     finish() {

@@ -20,10 +20,6 @@ export default class PirateShip extends Ship {
     }
 
     update() {
-        if (!this.alive) {
-            return;
-        }
-
         this.animationStep = (this.animationStep + 1) % 16;
         if (this.animationStep !== 0) {
             return;
@@ -51,14 +47,11 @@ export default class PirateShip extends Ship {
             }
         }
 
-        if (this.state.isOutOfBounds(this.parts[0].position)) {
+        if (!this.paused && this.state.isOutOfBounds(this.parts[0].position)) {
             this.die();
-            return;
         }
 
-        if (!this.paused) {
-            this.move(!!newPart);
-        }
+        this.move(!!newPart);
 
         if (newPart) {
             this.parts.splice(1, 0, new newPart(this.state, collectedDebris.position, this.parts[0].position, null));
@@ -82,7 +75,6 @@ export default class PirateShip extends Ship {
             return;
         }
         this.paused = true;
-        this.parts.forEach(part => part.paused = true);
         this.state.effects.push(new SinkEffect(this, () => {
             this.state.message = new Message(this.state, ['You’re shark food now. Let that sink in…'], 'or press space to try again.', false);
             this.alive = false;
