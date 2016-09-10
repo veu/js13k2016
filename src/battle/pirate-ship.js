@@ -66,11 +66,11 @@ export default class PirateShip extends Ship {
     }
 
     addOccupied(occupied) {
-        for (const part of this.parts) {
-            if (part.previous) {
-                occupied.push(part.previous);
+        this.parts.forEach((part, index) => {
+            if (index > 1 && part.next) {
+                occupied.push(part.next);
             }
-        }
+        });
     }
 
     die() {
