@@ -33,7 +33,7 @@ export default class Battle {
         }
 
         this.rewards = [
-            [8, () => { this.provisions += 5 }],
+            [8, () => { this.provisions += 2 }],
             [4, () => BlackSail],
             [2, () => Cannon],
             [1, () => {
