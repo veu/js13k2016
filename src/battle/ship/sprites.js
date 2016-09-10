@@ -45,6 +45,13 @@ function createShipGradient(ctx) {
     return gradient;
 }
 
+function createWhaleGradient(ctx) {
+    const gradient = ctx.createLinearGradient(0, 0, 0, 30);
+    gradient.addColorStop(0.5, '#59b');
+    gradient.addColorStop(1, '#156');
+    return gradient;
+}
+
 const Sprites = {
     back: createSpriteBundle(function (canvas, ctx) {
         ctx.beginPath();
@@ -119,7 +126,32 @@ const Sprites = {
         ctx.arc(11, 15, 2, 0, 7, 0);
         ctx.fillStyle = '#000';
         ctx.fill();
-    })
+    }),
+    whaleBack: createSpriteBundle(function (canvas, ctx) {
+        ctx.beginPath();
+        ctx.moveTo(22, 15);
+        ctx.lineTo(22, 30);
+        ctx.quadraticCurveTo(5, 30, 0, 20);
+        ctx.lineTo(2, 30);
+        ctx.quadraticCurveTo(5, 15, 22, 15);
+        ctx.fillStyle = createWhaleGradient(ctx);
+        ctx.fill();
+    }),
+    whaleBody: createSpriteBundle(function (canvas, ctx) {    
+        ctx.fillStyle = '#963';
+        ctx.fillStyle = createWhaleGradient(ctx);
+        ctx.fillRect(0, 15, 22, 15);
+    }),
+    whaleFront: createSpriteBundle(function (canvas, ctx) {
+        ctx.beginPath();
+        ctx.fillStyle = createWhaleGradient(ctx);
+        ctx.moveTo(0, 15);
+        ctx.quadraticCurveTo(25, 15, 21, 19);
+        ctx.quadraticCurveTo(25, 25, 0, 30);
+        ctx.fill();
+        ctx.fillStyle = '#000';
+        ctx.fillRect(5, 18, 2, 2);
+    }),
 };
 
 export default Sprites;

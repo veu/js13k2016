@@ -6,6 +6,7 @@ import Message from './battle/message';
 import PirateShip from './battle/pirate-ship';
 import Trader from './battle/trader';
 import {SpinGlitch, StormGlitch} from './battle/glitches';
+import Whale from './battle/whale';
 
 export default class Battle {
     constructor(game, withTutorial = false) {
@@ -216,7 +217,7 @@ export default class Battle {
             y: y == 0 ? 1 : y == 15 ? -1 : 0
         };
 
-        this.traders.push(new Trader(this, {x: x, y: y}, direction));
+        this.traders.push(new (Math.random() < .2 ? Whale : Trader)(this, {x: x, y: y}, direction));
     }
 
     isOutOfBounds(position) {
