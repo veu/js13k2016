@@ -1,4 +1,3 @@
-import Battle from './battle';
 import PirateShip from './battle/pirate-ship';
 
 export default class Title {
@@ -10,7 +9,7 @@ export default class Title {
     update(game) {
         if (game.input.hasKey()) {
             game.input.handleKey();
-            game.currentState = new Battle(this, true);
+            game.startBattle();
         }
 
         this.animationStep++;

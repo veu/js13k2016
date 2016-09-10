@@ -53,7 +53,7 @@ export default class Battle {
         if (!this.pirateShip.alive) {
             if (game.input.hasKey(32)) {
                 game.input.handleKey(32);
-                game.currentState = new Battle(game);
+                game.startBattle();
             }
             return;
         }

@@ -4,18 +4,21 @@ import Input from './input';
 import Screen from './screen';
 import Title from './title';
 
-export default function Game() {
-    this.screen = new Screen();
-    this.input = new Input();
-    Audio.play();
+export default class Game {
+    constructor() {
+        this.screen = new Screen();
+        this.input = new Input();
+        Audio.play();
 
-    this.currentState = new Title();
+        this.tutorial = true;
+        this.currentState = new Title();
+    }
 
-    this.start = function () {
+    start() {
         setInterval(this.update.bind(this), 1000 / 30);
     }
 
-    this.update = function () {
+    update() {
         this.currentState.update(this);
         this.draw();
         if (this.input.hasKey(84)) {
@@ -24,8 +27,12 @@ export default function Game() {
         }
     }
 
-    this.draw = function () {
+    draw() {
         this.screen.reset();
         this.currentState.draw(this.screen);
+    }
+
+    startBattle() {
+        this.currentState = new Battle(this, this.tutorial);
     }
 }
