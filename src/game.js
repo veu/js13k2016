@@ -20,7 +20,7 @@ export default class Game {
 
     update() {
         this.currentState.update(this);
-        this.draw();
+        requestAnimationFrame(() => this.draw());
         if (this.input.hasKey(84)) {
             this.input.handleKey(84);
             Audio.isPlaying ? Audio.stop() : Audio.play();
