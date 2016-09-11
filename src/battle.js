@@ -159,15 +159,15 @@ export default class Battle {
         screen.ctx.translate(520, 200);
         screen.ctx.rotate(Math.PI/2.8);
         screen.ctx.transform(1, -0.8, 0, 1, 0, 0);
-        screen.ctx.fillText('Score: ' + this.score, 0, 0);
+        screen.ctx.fillText('Gold: ' + this.score, 0, 0);
         screen.ctx.restore();
 
 
         screen.ctx.save();
-        screen.ctx.translate(640, 370);
+        screen.ctx.translate(659, 360);
         screen.ctx.rotate(Math.PI - Math.PI/2.8);
         screen.ctx.transform(1, 0.8, 0, 1, 0, 0);
-        screen.ctx.fillText('Highcore: ' + this.highscore.get(), 0, 0);
+        screen.ctx.fillText('Highest Gold: ' + this.highscore.get(), 0, 0);
         screen.ctx.restore();
 
         screen.drawPolygons();
