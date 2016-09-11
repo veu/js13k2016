@@ -94,7 +94,7 @@ export default class Battle {
 
         this.updateOccupied();
         if (this.isOccupied(this.pirateShip.parts[0].position.x, this.pirateShip.parts[0].position.y)) {
-            this.pirateShip.die();
+            this.pirateShip.die(true, ['You’re shark food now. Let that sink in… or']);
             return;
         }
         if (this.traders.length == 0) {
@@ -103,7 +103,7 @@ export default class Battle {
 
         this.provisions = Math.max(this.provisions - .01, 0);
         if (this.provisions < 1) {
-            this.pirateShip.die();
+            this.pirateShip.die(false, ['Without any food left you’re too weak to fight the rats taking over now.']);
         }
 
         this.animationStep++;

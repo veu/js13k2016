@@ -51,7 +51,7 @@ export default class PirateShip extends Ship {
         }
 
         if (!this.paused && this.state.isOutOfBounds(this.parts[0].position)) {
-            this.die();
+            this.die(true, ['You discovered the end of the world but it’s too late to tell anyone.']);
         }
 
         this.move(!!newPart);
@@ -73,14 +73,19 @@ export default class PirateShip extends Ship {
         });
     }
 
-    die() {
+    die(sink = false, deathMessage) {
         if (this.paused) {
             return;
         }
         this.paused = true;
-        this.state.effects.push(new SinkEffect(this, () => {
-            this.state.message = new Message(this.state, ['You’re shark food now. Let that sink in…'], 'or press space to try again.', false);
+        if (sink) {
+            this.state.effects.push(new SinkEffect(this, () => {
+                this.state.message = new Message(this.state, deathMessage, 'Press space to try again.', false);
+                this.alive = false;
+            }));
+        } else {
+            this.state.message = new Message(this.state, deathMessage, 'Press space to try again.', false);
             this.alive = false;
-        }));
+        }
     }
 }
