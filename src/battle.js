@@ -146,6 +146,8 @@ export default class Battle {
         screen.ctx.rotate(this.spin);
         screen.ctx.translate(-400, -310);
 
+        screen.ctx.fillStyle = '#630';
+
         screen.ctx.font = '20px Times New Roman, serif';
         screen.ctx.textAlign = 'left';
         screen.ctx.save();
