@@ -162,7 +162,6 @@ export default class Battle {
         screen.ctx.fillText('Gold: ' + this.score, 0, 0);
         screen.ctx.restore();
 
-
         screen.ctx.save();
         screen.ctx.translate(659, 360);
         screen.ctx.rotate(Math.PI - Math.PI/2.8);
