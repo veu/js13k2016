@@ -30,6 +30,7 @@ export default class Game {
     draw() {
         this.screen.reset();
         this.currentState.draw(this.screen);
+        this.screen.finish();
     }
 
     startBattle() {

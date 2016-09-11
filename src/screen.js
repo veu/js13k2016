@@ -1,24 +1,31 @@
 export default class Screen {
     constructor() {
-        this.canvas = document.createElement('canvas');
-        document.body.appendChild(this.canvas);
+        this.canvas = document.querySelector('#c1');
         this.ctx = this.canvas.getContext('2d');
 
         this.canvas.width = 800;
         this.canvas.height = 640;
-        this.center();
 
+        this.canvas2 = document.querySelector('#c2');
+        this.ctx2 = this.canvas2.getContext('2d');
+        this.canvas2.width = 200;
+        this.canvas2.height = 160;
+
+        this.center();
         window.onresize = () => this.center();
+
+        this.pixelated = false;
     }
 
     reset() {
         this.canvas.width = 800;
+        this.canvas2.width = 200;
         this.polygons = [];
     }
 
     center() {
-        this.canvas.style.position.left = window.innerHeight / 2  - 400 | 0;
-        this.canvas.style.position.top = window.innerHeight / 2  - 300 | 0;
+        this.canvas.style.left = (window.innerWidth / 2  - 400 | 0) + 'px';
+        this.canvas.style.top = (window.innerHeight / 2  - 320 | 0) + 'px';
     }
 
     drawCircle(x, y, radius) {
@@ -64,5 +71,15 @@ export default class Screen {
 
     translate3d(x, y) {
         this.ctx.translate((y - x) * 22, (x + y) * 11);
+    }
+
+    finish() {
+        if (this.pixelated) {
+            this.ctx.imageSmoothingEnabled = this.ctx.mozImageSmoothingEnabled = false;
+            this.ctx2.drawImage(this.canvas, 0, 0, 800, 640, 0, 0, 200, 160);
+            this.ctx.fillStyle = '#fff';
+            this.ctx.fillRect(0, 0, 800, 640);
+            this.ctx.drawImage(this.canvas2, 0, 0, 200, 160, 0, 0, 800, 640);
+        }
     }
 }

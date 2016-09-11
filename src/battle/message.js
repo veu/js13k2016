@@ -57,7 +57,7 @@ export default class Message {
         screen.ctx.font = '14px Times New Roman, serif';
         screen.ctx.fillText(this.sub, 400, 330);
 
-        screen.globalAlpha = 1;
+        screen.ctx.globalAlpha = 1;
     }
 
     continue() {

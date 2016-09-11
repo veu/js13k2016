@@ -30,3 +30,15 @@ export class StormGlitch extends Glitch {
         this.subject.stormFactor = 1 - Math.abs(progress * 2 - 1);
     }
 }
+
+export class LowResGlitch extends Glitch {
+    constructor(subject) {
+        super(subject, 30 * 10);
+        this.subject.pixelated = true;
+    }
+
+    finish() {
+        this.subject.glitchActive = false;
+        this.subject.pixelated = false;
+    }
+}
