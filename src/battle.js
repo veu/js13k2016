@@ -5,7 +5,7 @@ import Highscore from './battle/highscore';
 import Message from './battle/message';
 import PirateShip from './battle/pirate-ship';
 import Trader from './battle/trader';
-import {SpinGlitch, StormGlitch, LowResGlitch} from './battle/glitches';
+import {SpinGlitch, StormGlitch, LowResGlitch, MirrorGlitch} from './battle/glitches';
 import Whale from './battle/whale';
 
 export default class Battle {
@@ -42,7 +42,8 @@ export default class Battle {
                     const createGlitch = [
                         () => new SpinGlitch(this),
                         () => new StormGlitch(this),
-                        () => new LowResGlitch(game.screen)
+                        () => new LowResGlitch(game.screen),
+                        () => new MirrorGlitch(game.screen)
                     ][Math.random() * 2 | 0];
                     this.effects.push(createGlitch());
                 }

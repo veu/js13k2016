@@ -21,6 +21,11 @@ export default class Screen {
         this.canvas.width = 800;
         this.canvas2.width = 200;
         this.polygons = [];
+        if (this.mirrored) {
+            this.ctx.translate(400, 0);
+            this.ctx.scale(-1, 1);
+            this.ctx.translate(-400, 0);
+        }
     }
 
     center() {

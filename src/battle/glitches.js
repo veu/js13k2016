@@ -42,3 +42,15 @@ export class LowResGlitch extends Glitch {
         this.subject.pixelated = false;
     }
 }
+
+export class MirrorGlitch extends Glitch {
+    constructor(subject) {
+        super(subject, 30 * 10);
+        this.subject.mirrored = true;
+    }
+
+    finish() {
+        this.subject.glitchActive = false;
+        this.subject.mirrored = false;
+    }
+}
