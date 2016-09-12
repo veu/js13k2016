@@ -9,8 +9,8 @@ import {SpinGlitch, StormGlitch, LowResGlitch, MirrorGlitch} from './battle/glit
 import Whale from './battle/whale';
 
 export default class Battle {
-    constructor(game, withTutorial = false) {
-        this.withTutorial = withTutorial;
+    constructor(game) {
+        this.game = game;
         this.cannonBalls = [];
         this.debris = [];
         this.traders = [];
@@ -26,12 +26,7 @@ export default class Battle {
         this.stormFactor = 0;
         this.highscore = new Highscore();
 
-        if (withTutorial) {
-            this.message = new Message(this, [
-                'Hunt traders crossing the Glitchy Sea and keep your provisions in check.',
-                'Use left and right arrow keys to steer, T to toggle music.'
-            ]);
-        }
+        this.showMessage('intro');
 
         this.rewards = [
             [8, () => { this.provisions += 2 }],
@@ -56,20 +51,15 @@ export default class Battle {
         this.effects.forEach(effect => { effect.update() });
         this.effects = this.effects.filter(effect => effect.alive);
 
-        if (!this.pirateShip.alive) {
-            if (game.input.hasKey(32)) {
-                game.input.handleKey(32);
-                game.startBattle();
-            }
-            return;
-        }
-
         if (this.message) {
             if (game.input.hasKey(32)) {
-                this.message.continue();
                 game.input.handleKey(32);
+                this.message.continue();
             }
             if (!this.message.alive) {
+                if (!this.pirateShip.alive) {
+                    game.startBattle();
+                }
                 this.message = null
             }
             return;
@@ -94,7 +84,7 @@ export default class Battle {
 
         this.updateOccupied();
         if (this.isOccupied(this.pirateShip.parts[0].position.x, this.pirateShip.parts[0].position.y)) {
-            this.pirateShip.die(true, ['You’re shark food now. Let that sink in… or']);
+            this.pirateShip.die(true, 'sinking');
             return;
         }
         if (this.traders.length == 0) {
@@ -103,7 +93,7 @@ export default class Battle {
 
         this.provisions = Math.max(this.provisions - .01, 0);
         if (this.provisions < 1) {
-            this.pirateShip.die(false, ['Without any food left you’re too weak to fight the rats taking over now.']);
+            this.pirateShip.die(false, 'starving');
         }
 
         this.animationStep++;
@@ -266,5 +256,15 @@ export default class Battle {
     increaseScore(delta) {
         this.score += delta;
         this.highscore.update(this.score);
+    }
+
+    showMessage(key, sub = null) {
+        if (this.game.input.hasKey(32)) {
+            this.game.input.handleKey(32);
+        }
+        this.message = new Message(this, key, sub);
+        if (!this.message.alive) {
+            this.message = null;
+        }
     }
 }

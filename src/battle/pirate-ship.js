@@ -2,7 +2,6 @@ import BlackSail from './ship/black-sail-part';
 import Back from './ship/back-part';
 import Cannon from './ship/cannon-part';
 import Front from './ship/front-part';
-import Message from './message';
 import Ship from './ship';
 import {SinkEffect} from './ship';
 
@@ -38,12 +37,7 @@ export default class PirateShip extends Ship {
         if (collectedDebris) {
             this.state.increaseScore(this.parts.length * 10);
             if (this.parts.length == 3) {
-                if (this.state.withTutorial) {
-                    this.state.message = new Message(this.state, [
-                        'You got your first cannon. Press space to fire.',
-                        'Other crates might contain, provisions, more ship parts, or glitches.'
-                    ]);
-                }
+                this.state.showMessage('cannon');
                 newPart = Cannon;
             } else {
                 newPart = this.state.rollReward();
@@ -51,7 +45,7 @@ export default class PirateShip extends Ship {
         }
 
         if (!this.paused && this.state.isOutOfBounds(this.parts[0].position)) {
-            this.die(true, ['You discovered the end of the world but it’s too late to tell anyone.']);
+            this.die(true, 'falling');
         }
 
         this.move(!!newPart);
@@ -80,11 +74,11 @@ export default class PirateShip extends Ship {
         this.paused = true;
         if (sink) {
             this.state.effects.push(new SinkEffect(this, () => {
-                this.state.message = new Message(this.state, deathMessage, 'Press space to try again.', false);
+                this.state.showMessage(deathMessage, 'Press space to try again.', false);
                 this.alive = false;
             }));
         } else {
-            this.state.message = new Message(this.state, deathMessage, 'Press space to try again.', false);
+            this.state.showMessage(deathMessage, 'Press space to try again.', false);
             this.alive = false;
         }
     }

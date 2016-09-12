@@ -10,7 +10,6 @@ export default class Game {
         this.input = new Input();
         Audio.play();
 
-        this.tutorial = true;
         this.currentState = new Title();
     }
 
@@ -34,6 +33,6 @@ export default class Game {
     }
 
     startBattle() {
-        this.currentState = new Battle(this, this.tutorial);
+        this.currentState = new Battle(this);
     }
 }

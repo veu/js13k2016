@@ -1,5 +1,40 @@
 import Effect from '../effect';
 
+const messages = {
+    cannon: {
+        text: [
+            'You got your first cannon. Press space to fire.',
+            'Other crates might contain provisions, more ship parts, or glitches.'
+        ]
+    },
+    falling: {
+        text: [
+            'You discovered the end of the world but it’s too late to tell anyone.'
+        ],
+        recurring: true
+    },
+    intro: {
+        text: [
+            'Hunt traders crossing the Glitchy Sea and keep your provisions in check.',
+            'Use left and right arrow keys to steer, T to toggle music.'
+        ]
+    },
+    sinking: {
+        text: [
+            'You’re shark food now. Let that sink in… or'
+        ],
+        recurring: true
+    },
+    starving: {
+        text: [
+            'Without any food left you’re too weak to fight the rats taking over now.'
+        ],
+        recurring: true
+    }
+};
+
+const seen = new Set();
+
 class FadeIn extends Effect {
     constructor(subject) {
         super(subject, 12);
@@ -27,15 +62,20 @@ class FadeOut extends Effect {
 }
 
 export default class Message {
-    constructor(state, messages, sub = null) {
+    constructor(state, key, sub = null) {
         this.state = state;
-        this.messages = messages;
+        this.messages = messages[key].text;
         this.sub = sub || 'Press space to continue.';
-        this.alive = true;
+        this.alive = !seen.has(key);
         this.currentMessage = 0;
         this.opacity = 1;
 
-        state.effects.push(new FadeIn(this));
+        if (this.alive) {
+            state.effects.push(new FadeIn(this));
+            if (!messages[key].recurring) {
+                seen.add(key);
+            }
+        }
     }
 
     draw(screen) {
