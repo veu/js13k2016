@@ -28,18 +28,20 @@ export default class Battle {
 
         this.showMessage('intro');
 
+        this.glitches = [
+            () => new SpinGlitch(this),
+            () => new StormGlitch(this),
+            () => new LowResGlitch(game.screen),
+            () => new MirrorGlitch(game.screen)
+        ];
+
         this.rewards = [
             [8, () => { this.provisions += 2 }],
             [4, () => BlackSail],
             [2, () => Cannon],
             [1, () => {
                 if (!this.glitchActive) {
-                    const createGlitch = [
-                        () => new SpinGlitch(this),
-                        () => new StormGlitch(this),
-                        () => new LowResGlitch(game.screen),
-                        () => new MirrorGlitch(game.screen)
-                    ][Math.random() * 2 | 0];
+                    const createGlitch = this.glitches[Math.random() * this.glitches.length | 0];
                     this.effects.push(createGlitch());
                 }
             }],
