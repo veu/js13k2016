@@ -1,6 +1,4 @@
-import Sprites from './ship/sprites.js';
-
-export default class Cannonball {
+class Cannonball {
     constructor(state, position, direction) {
         this.state = state;
         this.position = position;
@@ -37,7 +35,7 @@ export default class Cannonball {
                 screen.ctx.translate(0, -25);
                 screen.translate3d(
                     this.direction.x ? 0 : .5,
-                    this.direction.x ? -.5 : 0,
+                    this.direction.x ? -.5 : 0
                 );
                 screen.ctx.transform(1, this.direction.x ? 0.5 : -0.5, 0, 1, 0, 0);
                 screen.ctx.drawImage(

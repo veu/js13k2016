@@ -1,4 +1,4 @@
-export default class Screen {
+class Screen {
     constructor() {
         this.canvas = document.querySelector('#c1');
         this.ctx = this.canvas.getContext('2d');

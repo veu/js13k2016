@@ -1,4 +1,4 @@
-export default class Debris {
+class Debris {
     constructor(state, x, y) {
         this.state = state;
         this.position = {x: x, y: y};

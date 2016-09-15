@@ -1,15 +1,8 @@
-import Back from './ship/back-part.js';
-import Debris from './debris.js';
-import Front from './ship/front-part.js';
-import Npc from './npc';
-import Sail from './ship/sail-part.js';
-import {SinkEffect} from './ship';
-
-export default class Trader extends Npc {
+class Trader extends Npc {
     constructor(state, entrance, direction) {
-        super(state, entrance, direction, Front);
-        this.middle = Sail;
-        this.back = Back;
+        super(state, entrance, direction, FrontPart);
+        this.middle = SailPart;
+        this.back = BackPart;
     }
 
     die() {

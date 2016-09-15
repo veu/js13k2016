@@ -1,4 +1,4 @@
-export default class Highscore {
+class Highscore {
     constructor() {
         this.key = 'poftgs_highscore';
         this.highscore = localStorage.getItem(this.key) || 0;

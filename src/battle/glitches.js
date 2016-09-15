@@ -1,5 +1,3 @@
-import Effect from '../effect';
-
 class Glitch extends Effect {
     constructor(subject, ttl) {
         super(subject, ttl);
@@ -11,7 +9,7 @@ class Glitch extends Effect {
     }
 }
 
-export class SpinGlitch extends Glitch {
+class SpinGlitch extends Glitch {
     constructor(subject) {
         super(subject, 30 * 10);
     }
@@ -21,7 +19,7 @@ export class SpinGlitch extends Glitch {
     }
 }
 
-export class StormGlitch extends Glitch {
+class StormGlitch extends Glitch {
     constructor(subject) {
         super(subject, 30 * 10);
     }
@@ -31,7 +29,7 @@ export class StormGlitch extends Glitch {
     }
 }
 
-export class LowResGlitch extends Glitch {
+class LowResGlitch extends Glitch {
     constructor(subject) {
         super(subject, 30 * 10);
         this.subject.pixelated = true;
@@ -43,7 +41,7 @@ export class LowResGlitch extends Glitch {
     }
 }
 
-export class MirrorGlitch extends Glitch {
+class MirrorGlitch extends Glitch {
     constructor(subject) {
         super(subject, 30 * 10);
         this.subject.mirrored = true;

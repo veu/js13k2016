@@ -1,4 +1,4 @@
-export default class Input {
+class Input {
     constructor() {
         this.keys = new Set();
         this.handledKeys = new Set();

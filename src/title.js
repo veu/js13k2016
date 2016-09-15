@@ -1,6 +1,4 @@
-import PirateShip from './battle/pirate-ship';
-
-export default class Title {
+class Title {
     constructor() {
         this.pirateShip = new PirateShip(this);
         this.animationStep = 0;

@@ -1,14 +1,4 @@
-import BlackSail from './battle/ship/black-sail-part';
-import Cannon from './battle/ship/cannon-part';
-import Debris from './battle/debris';
-import Highscore from './battle/highscore';
-import Message from './battle/message';
-import PirateShip from './battle/pirate-ship';
-import Trader from './battle/trader';
-import {SpinGlitch, StormGlitch, LowResGlitch, MirrorGlitch} from './battle/glitches';
-import Whale from './battle/whale';
-
-export default class Battle {
+class Battle {
     constructor(game) {
         this.game = game;
         this.cannonBalls = [];
@@ -37,8 +27,8 @@ export default class Battle {
 
         this.rewards = [
             [8, () => { this.provisions += 2 }],
-            [4, () => BlackSail],
-            [2, () => Cannon],
+            [4, () => BlackSailPart],
+            [2, () => CannonPart],
             [1, () => {
                 if (!this.glitchActive) {
                     const createGlitch = this.glitches[Math.random() * this.glitches.length | 0];

@@ -1,4 +1,4 @@
-export default class Effect {
+class Effect {
     constructor(subject, ttl) {
         this.subject = subject;
         this.ttl = ttl;
