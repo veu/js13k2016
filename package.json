@@ -4,11 +4,10 @@
   "description": "JS13k 2016 entry",
   "author": "Rebecca",
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
+    "esprima": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
-  },
-  "dependencies": {
     "gulp-size": "^2.1.0",
     "gulp-zip": "^3.2.0"
   }
