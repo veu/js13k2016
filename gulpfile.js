@@ -19,22 +19,25 @@ gulp.task('copy_assets', function () {
     .pipe(gulp.dest('./dist/'));
 });
 
-gulp.task('zip', ['parse', 'copy_assets'], function () {
+gulp.task('zip', ['minify', 'copy_assets'], function () {
   return gulp.src('dist/*')
     .pipe(zip('dist.zip'))
     .pipe(size({pretty: false, showFiles: true}))
     .pipe(gulp.dest('.'));
 });
 
-gulp.task('parse', ['concat_js'], function (complete) {
-  fs.readFile('dist/bundle.js', 'utf8', (err, data) => {
+gulp.task('minify', ['concat_js'], function (complete) {
+  const minified = require("babel-core").transformFile('dist/bundle.js', {
+    'plugins': [
+    ],
+    compact: true,
+    minified: true,
+    comments: false
+  }, function (err, result) {
     if (err) throw err;
-    try {
-      const ast = esprima.parse(data);
-      console.log(ast);
+    fs.writeFile('dist/bundle.js', result.code, 'utf8', function (err) {
+      if (err) throw err;
       complete();
-    } catch (e) {
-      throw `Parsing error at ${e.lineNumber}:${e.index} - ${e.description}`;
-    }
+    });
   });
 });
