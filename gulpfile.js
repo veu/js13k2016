@@ -14,12 +14,24 @@ gulp.task('concat_js', function () {
     .pipe(gulp.dest('./dist/'));
 });
 
-gulp.task('copy_assets', function () {
-  return gulp.src('src/*.html')
-    .pipe(gulp.dest('./dist/'));
+gulp.task('join_assets', ['minify'], function (complete) {
+  fs.readFile('src/index.html', 'utf8', function (err, html) {
+    if (err) throw err;
+    fs.readFile('dist/bundle.js', 'utf8', function (err, script) {
+      if (err) throw err;
+      html = html.replace('SCRIPT', script);
+      fs.writeFile('dist/index.html', html, function (err) {
+        if (err) throw err;
+        fs.unlink('dist/bundle.js', function (err) {
+          if (err) throw err;
+          complete();
+        });
+      });
+    });
+  });
 });
 
-gulp.task('zip', ['minify', 'copy_assets'], function () {
+gulp.task('zip', ['join_assets'], function () {
   return gulp.src('dist/*')
     .pipe(zip('dist.zip'))
     .pipe(size({pretty: false, showFiles: true}))
