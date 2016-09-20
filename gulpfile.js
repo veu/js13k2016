@@ -15,7 +15,7 @@ gulp.task('concat_js', function () {
 });
 
 gulp.task('copy_assets', function () {
-  return gulp.src('src/*.{html,css}')
+  return gulp.src('src/*.html')
     .pipe(gulp.dest('./dist/'));
 });
 
